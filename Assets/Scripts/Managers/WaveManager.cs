@@ -75,6 +75,12 @@ public class WaveManager : MonoBehaviour
 		for (int enemyIndex = 0; enemyIndex < enemiesCount; enemyIndex++)
         {
             Enemy enemy = instanciedEnemies[enemyIndex];
+
+			if(enemy.CurrentEnemyState == Enemy.EnemyState.Spawning)
+			{
+				continue;
+			}
+
 			float currentDistance = Vector3.Distance(position, enemy.transform.position);
 			if(currentDistance < distance)
 			{

@@ -6,9 +6,24 @@ public class Enemy : MonoBehaviour
 	public float BaseHealthMax = 10;
 	private float healthMax;
 	private float currentHealth;
+	public EnemyState CurrentEnemyState;
+	private Animation animation;
+
+	public enum EnemyState
+	{
+		Spawning,
+		Roaming,
+		Charging,
+	}
+
+	private void Awake()
+	{
+		animation = GetComponent<Animation>();
+	}
 
 	private void Start()
 	{
+
 	}
 
 	private void OnDeath()
@@ -21,10 +36,17 @@ public class Enemy : MonoBehaviour
 		healthMax = BaseHealthMax * (1 + wave * 0.2f);
 		currentHealth = healthMax;
 		HealthBar.RatioChanged(1);
+		CurrentEnemyState = EnemyState.Spawning;
+		animation.Play();
 	}
 
 	public void IsTouched(int damage)
 	{
+		if (CurrentEnemyState == EnemyState.Spawning)
+		{
+			return;
+		}
+
 		currentHealth -= damage;
 		HealthBar.RatioChanged(currentHealth / healthMax);
 		GameObject floatingDamage = GameManager.Instance.PoolManager.GetInstanciedPrefab(GameManager.Instance.FloatingDamagePrefab, transform.position, typeof(FloatingDamage));
@@ -39,5 +61,15 @@ public class Enemy : MonoBehaviour
 			floatingDamage.transform.SetParent(transform, false);
 			floatingDamage.transform.localPosition = Vector3.zero;
 		}
+	}
+
+	public void SpawnEnd()
+	{
+		ChangeState();
+	}
+
+	private void ChangeState()
+	{
+		CurrentEnemyState = Random.value < 0.5f ? EnemyState.Roaming : EnemyState.Charging;
 	}
 }
