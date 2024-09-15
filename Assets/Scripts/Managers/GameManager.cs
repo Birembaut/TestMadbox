@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     public WeaponData[] WeaponDatas;
     public GameObject FloatingDamagePrefab;
+    public GameObject DamageParticleSystem;
 
     public CinemachineVirtualCamera VirtualCamera;
     public GameObject PlayerPrefab;
@@ -72,4 +73,9 @@ public class GameManager : MonoBehaviour
         points++;
         ScoreChanged.Invoke(points);
 	}
+
+    public void DisplayDamageParticuleSystem(Vector3 position)
+    {
+        PoolManager.GetInstanciedPrefab(DamageParticleSystem, position + Vector3.up / 2, typeof(ParticleSystem));
+    }
 }

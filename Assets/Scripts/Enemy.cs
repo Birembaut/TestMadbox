@@ -76,6 +76,7 @@ public class Enemy : MonoBehaviour
 			return;
 		}
 
+		GameManager.Instance.DisplayDamageParticuleSystem(transform.position);
 		currentHealth -= damage;
 		HealthBar.RatioChanged(currentHealth / healthMax);
 		GameObject floatingDamage = GameManager.Instance.PoolManager.GetInstanciedPrefab(GameManager.Instance.FloatingDamagePrefab, transform.position, typeof(FloatingDamage));

@@ -600,6 +600,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 810094346}
   BaseHealthMax: 10
+  Speed: 2
+  RoamChangeDirectionTimer: 3
+  RoamDistance: 3
   CurrentEnemyState: 0
 --- !u!95 &2038507757
 Animator:

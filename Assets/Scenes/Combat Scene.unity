@@ -205,6 +205,10 @@ PrefabInstance:
       propertyPath: VirtualCamera
       value: 
       objectReference: {fileID: 104881684}
+    - target: {fileID: 2571508104635933454, guid: 8794fe923b5430b4c8ea6c1f31959778, type: 3}
+      propertyPath: DamageParticleSystem
+      value: 
+      objectReference: {fileID: 4842883650588710864, guid: 21419399892e9984aa0fa681e6cdda62, type: 3}
     - target: {fileID: 3703079223753638919, guid: 8794fe923b5430b4c8ea6c1f31959778, type: 3}
       propertyPath: m_RootOrder
       value: 0
