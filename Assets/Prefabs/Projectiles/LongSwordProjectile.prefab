@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8bcadbc6871e242be8cdb12dc7fe6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 15
+  Speed: 20
   Damage: 5
   Duration: 1
 --- !u!1001 &3440180415327266661

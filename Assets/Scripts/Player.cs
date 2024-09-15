@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class Player : MonoBehaviour
 
 	private void Start()
 	{
+		SceneManager.LoadScene("UIScene", LoadSceneMode.Additive);
+
 		characterController = GetComponent<CharacterController>();
 		animator = GetComponentInChildren<Animator>();
 		GetComponentInChildren<PlayerAnimatorEvent>().Player = this;
@@ -129,5 +132,15 @@ public class Player : MonoBehaviour
 	{
 		WeaponSlot.gameObject.SetActive(true);
 		CanAttack = true;
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if(other.tag == "Collectible")
+		{
+			Collectible collectible = other.GetComponent<Collectible>();
+			EquipEquipment(collectible.WeaponData);
+			Destroy(collectible.gameObject);
+		}
 	}
 }

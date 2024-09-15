@@ -89,8 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55a7445cf4c04844087e631ef1b33780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 6
-  Damage: 5
+  Speed: 10
+  Damage: 10
   Duration: 4
   visualRoot: {fileID: 335063420677177417}
   RotationSpeed: 1500

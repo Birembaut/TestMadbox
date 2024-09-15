@@ -580,7 +580,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1358921057130329688}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -599,7 +599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 810094346}
-  BaseHealthMax: 10
+  BaseHealthMax: 5
   Speed: 2
   RoamChangeDirectionTimer: 3
   RoamDistance: 3

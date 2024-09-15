@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 	private Animation animation;
 	private float ChangeTargetPositionDelay = 0;
 	private Vector3 targetPosition = Vector3.zero;
+	
 
 	public enum EnemyState
 	{
@@ -76,6 +77,11 @@ public class Enemy : MonoBehaviour
 			return;
 		}
 
+		if(CurrentEnemyState == EnemyState.Roaming)
+		{
+			CurrentEnemyState = EnemyState.Charging;
+		}
+
 		GameManager.Instance.DisplayDamageParticuleSystem(transform.position);
 		currentHealth -= damage;
 		HealthBar.RatioChanged(currentHealth / healthMax);
@@ -100,6 +106,6 @@ public class Enemy : MonoBehaviour
 
 	private void ChangeState()
 	{
-		CurrentEnemyState = Random.value < 0.5f ? EnemyState.Roaming : EnemyState.Charging;
+		CurrentEnemyState = Random.value < 0.8f ? EnemyState.Roaming : EnemyState.Charging;
 	}
 }
