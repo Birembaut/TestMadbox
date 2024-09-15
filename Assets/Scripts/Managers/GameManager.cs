@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 	public PoolManager PoolManager;
 
     public WeaponData[] WeaponDatas;
+    public GameObject FloatingDamagePrefab;
 
     public CinemachineVirtualCamera VirtualCamera;
     public GameObject PlayerPrefab;

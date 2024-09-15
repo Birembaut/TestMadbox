@@ -53,6 +53,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6a40df7188c39b54086d410853e9b5e1, type: 2}
   - {fileID: 11400000, guid: ba709ea24461a2c44b024ac826118eab, type: 2}
   - {fileID: 11400000, guid: d92d1ea86eed7334fb9f416cad85a5b1, type: 2}
+  FloatingDamagePrefab: {fileID: 136565866454988006, guid: 5ebadfb1bffd48e46b99b5450592a83b, type: 3}
   VirtualCamera: {fileID: 0}
   PlayerPrefab: {fileID: 3206923099687242354, guid: 89de4008f8cc87d4a8e2924ba9d12eb7, type: 3}
 --- !u!114 &2571508104635933456
