@@ -95,6 +95,11 @@ public class Player : MonoBehaviour
 
 	private void EquipEquipment(WeaponData weapon)
 	{
+		for (int childIndex = WeaponSlot.childCount - 1; childIndex >= 0; childIndex--)
+		{
+			Destroy(WeaponSlot.GetChild(childIndex).gameObject);
+		}
+
 		currentWeapon = weapon;
 		GameObject weaponInstance = Instantiate(currentWeapon.PrefabWeapon, WeaponSlot);
 		speed = currentWeapon.HeroSpeed;
