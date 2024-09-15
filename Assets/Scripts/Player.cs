@@ -87,6 +87,11 @@ public class Player : MonoBehaviour
 
 	private void OnEnemyDied(GameObject enemy)
 	{
+		if(target == null)
+		{
+			return;
+		}
+
 		if (enemy == target.gameObject)
 		{
 			target = null;

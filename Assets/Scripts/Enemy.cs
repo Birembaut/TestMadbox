@@ -1,13 +1,19 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
 	public HealthBar HealthBar;
 	public float BaseHealthMax = 10;
+	public float Speed = 2;
+	public float RoamChangeDirectionTimer = 3f;
+	public float RoamDistance = 3f;
 	private float healthMax;
 	private float currentHealth;
 	public EnemyState CurrentEnemyState;
 	private Animation animation;
+	private float ChangeTargetPositionDelay = 0;
+	private Vector3 targetPosition = Vector3.zero;
 
 	public enum EnemyState
 	{
@@ -21,9 +27,32 @@ public class Enemy : MonoBehaviour
 		animation = GetComponent<Animation>();
 	}
 
-	private void Start()
+	private void Update()
 	{
+		if(CurrentEnemyState == EnemyState.Spawning)
+		{
+			return;
+		}
 
+		Vector3 positionToReach = Vector3.zero;
+		if(CurrentEnemyState == EnemyState.Charging)
+		{
+			positionToReach = GameManager.Instance.GetPlayerPosition();
+		}
+		else if(CurrentEnemyState == EnemyState.Roaming)
+		{
+			if(ChangeTargetPositionDelay <= 0)
+			{
+				ChangeTargetPositionDelay = RoamChangeDirectionTimer;
+				targetPosition = transform.position + Vector3.forward * Random.Range(-RoamDistance, RoamDistance) + Vector3.right * Random.Range(-RoamDistance, RoamDistance);
+			}
+
+			positionToReach = targetPosition;
+			ChangeTargetPositionDelay -= Time.deltaTime;
+		}
+
+		transform.position = Vector3.MoveTowards(transform.position, positionToReach, Speed * Time.deltaTime);
+		transform.LookAt(positionToReach);
 	}
 
 	private void OnDeath()

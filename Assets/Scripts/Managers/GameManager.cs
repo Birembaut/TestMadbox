@@ -3,7 +3,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+	public static GameManager Instance;
+
+	public delegate void OnScoreChanged(int score);
+	public OnScoreChanged ScoreChanged;
+
     [HideInInspector]
     public InputManager InputManager;
 	[HideInInspector]
@@ -18,6 +22,8 @@ public class GameManager : MonoBehaviour
     public GameObject PlayerPrefab;
 
     private GameObject playerInstance;
+
+    private int points;
 
     private void Awake()
     {
@@ -35,11 +41,35 @@ public class GameManager : MonoBehaviour
         PoolManager = gameObject.GetComponent<PoolManager>();
 
         DontDestroyOnLoad(gameObject);
+		WaveManager.EnemyDied += OnEnemyDiedEvent;
+	}
+
+	private void OnDestroy()
+	{
+		WaveManager.EnemyDied -= OnEnemyDiedEvent;
 	}
 
 	private void Start()
 	{
 		playerInstance = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
         VirtualCamera.Follow = playerInstance.transform;
+	}
+
+    public Vector3 GetPlayerPosition()
+    {
+        if(playerInstance == null)
+        {
+            return Vector3.zero;
+        }
+        else
+        { 
+            return playerInstance.transform.position; 
+        }
+    }
+
+	private void OnEnemyDiedEvent(GameObject enemy)
+	{
+        points++;
+        ScoreChanged.Invoke(points);
 	}
 }
