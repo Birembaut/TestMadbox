@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2571508104635933456}
   - component: {fileID: 2161235378873949160}
   - component: {fileID: 2439411031876293746}
+  - component: {fileID: 965189679}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -54,6 +55,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ba709ea24461a2c44b024ac826118eab, type: 2}
   - {fileID: 11400000, guid: d92d1ea86eed7334fb9f416cad85a5b1, type: 2}
   FloatingDamagePrefab: {fileID: 136565866454988006, guid: 5ebadfb1bffd48e46b99b5450592a83b, type: 3}
+  DamageParticleSystem: {fileID: 4842883650588710864, guid: 21419399892e9984aa0fa681e6cdda62, type: 3}
   VirtualCamera: {fileID: 0}
   PlayerPrefab: {fileID: 3206923099687242354, guid: 89de4008f8cc87d4a8e2924ba9d12eb7, type: 3}
 --- !u!114 &2571508104635933456
@@ -94,3 +96,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3061a16fc0c7764ba76edcf7149a3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &965189679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53417075334382407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe446ca4e8b93df47a1165f17ea76a58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectibles:
+  - {fileID: 2701084563867896359, guid: c9f6667100026ff41b973b2ca8793d3f, type: 3}
+  - {fileID: 2049034418926390202, guid: a8cc9f6b85f660e449918b0bd6bf29e7, type: 3}
+  - {fileID: 4542329688431032269, guid: a03ba3056b696714db129c86958d2103, type: 3}
+  SpawnRate: 0.2

@@ -205,10 +205,6 @@ PrefabInstance:
       propertyPath: VirtualCamera
       value: 
       objectReference: {fileID: 104881684}
-    - target: {fileID: 2571508104635933454, guid: 8794fe923b5430b4c8ea6c1f31959778, type: 3}
-      propertyPath: DamageParticleSystem
-      value: 
-      objectReference: {fileID: 4842883650588710864, guid: 21419399892e9984aa0fa681e6cdda62, type: 3}
     - target: {fileID: 3703079223753638919, guid: 8794fe923b5430b4c8ea6c1f31959778, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -342,28 +338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &965189678 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 53417075334382407, guid: 8794fe923b5430b4c8ea6c1f31959778, type: 3}
-  m_PrefabInstance: {fileID: 426358540}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &965189679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965189678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe446ca4e8b93df47a1165f17ea76a58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collectibles:
-  - {fileID: 2701084563867896359, guid: c9f6667100026ff41b973b2ca8793d3f, type: 3}
-  - {fileID: 2049034418926390202, guid: a8cc9f6b85f660e449918b0bd6bf29e7, type: 3}
-  - {fileID: 4542329688431032269, guid: a03ba3056b696714db129c86958d2103, type: 3}
-  SpawnRate: 0.1
 --- !u!1 &1244021808
 GameObject:
   m_ObjectHideFlags: 0
