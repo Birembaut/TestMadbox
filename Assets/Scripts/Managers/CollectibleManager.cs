@@ -24,8 +24,13 @@ public class CollectibleManager : MonoBehaviour
 		GameManager.Instance.WaveManager.EnemyDied -= OnEnemyDied;
 	}
 
-	private void OnEnemyDied(GameObject enemy)
+	private void OnEnemyDied(GameObject enemy, bool isKilled)
 	{
+		if(!isKilled)
+		{
+			return;
+		}
+
 		if(Random.value < SpawnRate)
 		{
 			collectibleList.Add(Instantiate(collectibles[Random.Range(0, collectibles.Length)], enemy.transform.position, Quaternion.identity));

@@ -1,8 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
+	public ExplosionPSRecycler ExplosionPSRecycler;
+	public SkinnedMeshRenderer SkinnedMeshRenderer;
 	public HealthBar HealthBar;
 	public float BaseHealthMax = 10;
 	public float Speed = 2;
@@ -14,7 +17,8 @@ public class Enemy : MonoBehaviour
 	private Animation animation;
 	private float ChangeTargetPositionDelay = 0;
 	private Vector3 targetPosition = Vector3.zero;
-	
+	private Coroutine flickColorCoroutine;
+
 
 	public enum EnemyState
 	{
@@ -56,18 +60,21 @@ public class Enemy : MonoBehaviour
 		transform.LookAt(positionToReach);
 	}
 
-	private void OnDeath()
+	private void OnDeath(bool isKilled)
 	{
-		GameManager.Instance.WaveManager.EnemyDied.Invoke(gameObject);
+		GameManager.Instance.WaveManager.EnemyDied.Invoke(gameObject, isKilled);
 	}
 
 	public void Reset(int wave)
 	{
+		SkinnedMeshRenderer.material.SetColor("_BaseColor", Color.white);
 		healthMax = BaseHealthMax * (1 + wave * 0.2f);
 		currentHealth = healthMax;
 		HealthBar.RatioChanged(1);
 		CurrentEnemyState = EnemyState.Spawning;
 		animation.Play();
+
+		transform.localScale = Vector3.one * Random.Range(0.8f, 1.2f);
 	}
 
 	public void IsTouched(int damage)
@@ -90,12 +97,17 @@ public class Enemy : MonoBehaviour
 
 		if (currentHealth <= 0)
 		{
-			OnDeath();
+			OnDeath(true);
 		}
 		else
 		{
 			floatingDamage.transform.SetParent(transform, false);
 			floatingDamage.transform.localPosition = Vector3.zero;
+			if(flickColorCoroutine != null)
+			{
+				StopCoroutine(flickColorCoroutine);
+			}
+			flickColorCoroutine = StartCoroutine(FlickColor());
 		}
 	}
 
@@ -107,5 +119,21 @@ public class Enemy : MonoBehaviour
 	private void ChangeState()
 	{
 		CurrentEnemyState = Random.value < 0.8f ? EnemyState.Roaming : EnemyState.Charging;
+	}
+
+	private IEnumerator FlickColor()
+	{
+		SkinnedMeshRenderer.material.SetColor("_BaseColor", Color.red);
+		yield return new WaitForSeconds(0.1f);
+		SkinnedMeshRenderer.material.SetColor("_BaseColor", Color.white);
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if(other.tag == "Player")
+		{
+			GameManager.Instance.PoolManager.GetInstanciedPrefab(ExplosionPSRecycler.gameObject, transform.position + Vector3.up / 2, typeof(ExplosionPSRecycler));
+			OnDeath(false);
+		}
 	}
 }

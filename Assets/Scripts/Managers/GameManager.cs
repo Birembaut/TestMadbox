@@ -68,14 +68,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-	private void OnEnemyDiedEvent(GameObject enemy)
+	private void OnEnemyDiedEvent(GameObject enemy, bool isKilled)
 	{
+        if (!isKilled)
+        {
+            return;
+        }
+
         points++;
         ScoreChanged.Invoke(points);
 	}
 
     public void DisplayDamageParticuleSystem(Vector3 position)
     {
-        PoolManager.GetInstanciedPrefab(DamageParticleSystem, position + Vector3.up / 2, typeof(ParticleSystem));
+        PoolManager.GetInstanciedPrefab(DamageParticleSystem, position + Vector3.up / 2, typeof(DamagePSRecycler));
     }
 }

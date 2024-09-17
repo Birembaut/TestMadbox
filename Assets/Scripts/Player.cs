@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	private void OnEnemyDied(GameObject enemy)
+	private void OnEnemyDied(GameObject enemy, bool isKilled)
 	{
 		if(target == null)
 		{
@@ -109,7 +109,8 @@ public class Player : MonoBehaviour
 		currentWeapon = weapon;
 		GameObject weaponInstance = Instantiate(currentWeapon.PrefabWeapon, WeaponSlot);
 		speed = currentWeapon.HeroSpeed;
-		animator.SetFloat("AttackSpeed", currentWeapon.AnimationSpeed);
+		animator.SetFloat("AttackSpeed", currentWeapon.AttackAnimationSpeed);
+		animator.SetFloat("WalkSpeed", currentWeapon.WalkAnimationSpeed);
 	}
 
 	private void ChooseStartEquipment()

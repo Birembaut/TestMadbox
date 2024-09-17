@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefabWeapon: {fileID: 6937623146161485751, guid: 4d0814cafad460246890ec829fa7071d, type: 3}
   PrefabProjectile: {fileID: 6990240071940127080, guid: ed771b47450008e4aba8f27a9853151a, type: 3}
-  AnimationSpeed: 6
+  WalkAnimationSpeed: 2
+  AttackAnimationSpeed: 6
   HeroSpeed: 12

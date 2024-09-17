@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-	public delegate void OnEnemyDied(GameObject enemy);
+	public delegate void OnEnemyDied(GameObject enemy, bool isKilled);
 	public OnEnemyDied EnemyDied;
 	public GameObject EnemiesPrefab;
 
@@ -52,7 +52,7 @@ public class WaveManager : MonoBehaviour
 		return new Vector3(horizontal, 0, vertical);
 	}
 
-	private void OnEnemyDiedEvent(GameObject enemy)
+	private void OnEnemyDiedEvent(GameObject enemy, bool isKilled)
 	{
 		Enemy enemyScript = enemy.GetComponent<Enemy>();
 		GameManager.Instance.PoolManager.RecycleItem(enemy, typeof(Enemy));

@@ -29,6 +29,7 @@ public class PoolManager : MonoBehaviour
 
 	public void RecycleItem(GameObject item, Type type)
 	{
+		Debug.Log(type);
 		List<GameObject> list = pooledGameobjects[type];
 		list.Add(item);
 		pooledGameobjects[type] = list;
