@@ -32,16 +32,22 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 7af1d8ba21a96244d8645bdfa81edece, type: 3}
-    totalSpriteSurfaceArea: 65792
+    totalSpriteSurfaceArea: 262400
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: c3569591360bf284588dc13d12e259e6, type: 3}
   - {fileID: -2413806693520163455, guid: e02b5a425513c1a4481ea98b6d74b41c, type: 3}
+  - {fileID: 21300000, guid: 1ea3fdd2436589a459162a55c93ab538, type: 3}
+  - {fileID: 21300000, guid: 8c39932709c9ba141a43f1f7b17296aa, type: 3}
   - {fileID: 21300000, guid: b72686575cfdbcc4487a9f58097ce943, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Curved
   - Circle
+  - Long
+  - Great
   - WhiteSquare
   m_RenderDataMap: {}
   m_Tag: UI

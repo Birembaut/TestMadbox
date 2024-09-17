@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
+	public bool UpdateRotation;
 	public Image TopBar;
 	public Image BottomBar;
 	public float Speed;
@@ -12,7 +13,10 @@ public class HealthBar : MonoBehaviour
 
 	private void Update()
 	{
-		transform.LookAt(Camera.main.transform.position);
+		if(UpdateRotation)
+		{
+			transform.LookAt(Camera.main.transform.position);
+		}
 	}
 
 	public void RatioChanged(float ratio)

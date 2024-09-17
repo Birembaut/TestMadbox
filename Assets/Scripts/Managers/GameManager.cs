@@ -1,5 +1,6 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,14 +9,30 @@ public class GameManager : MonoBehaviour
 	public delegate void OnScoreChanged(int score);
 	public OnScoreChanged ScoreChanged;
 
-    [HideInInspector]
+	public delegate void OnPlayerDied(int score);
+	public OnPlayerDied PlayerDied;
+
+	public delegate void OnPlayerLifeChanged(float ratio);
+	public OnPlayerLifeChanged PlayerLifeChanged;
+
+	public delegate void OnCollectibleCollected(Collectible collectible);
+	public OnCollectibleCollected CollectibleCollected;
+
+	public delegate void OnWeaponChanged(WeaponData weaponData);
+	public OnWeaponChanged WeaponChanged;
+
+	[HideInInspector]
     public InputManager InputManager;
 	[HideInInspector]
 	public WaveManager WaveManager;
 	[HideInInspector]
 	public PoolManager PoolManager;
+	[HideInInspector]
+	public CollectibleManager CollectibleManager;
+	[HideInInspector]
+	public AudioManager AudioManager;
 
-    public WeaponData[] WeaponDatas;
+	public WeaponData[] WeaponDatas;
     public GameObject FloatingDamagePrefab;
     public GameObject DamageParticleSystem;
 
@@ -24,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject playerInstance;
 
-    private int points;
+    private int score;
 
     private void Awake()
     {
@@ -35,25 +52,29 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
-        }
+		}
 
-        InputManager = gameObject.GetComponent<InputManager>();
+		SceneManager.LoadScene("UIScene", LoadSceneMode.Additive);
+
+		InputManager = gameObject.GetComponent<InputManager>();
         WaveManager = gameObject.GetComponent<WaveManager>();
         PoolManager = gameObject.GetComponent<PoolManager>();
+		CollectibleManager = gameObject.GetComponent<CollectibleManager>();
+		AudioManager = gameObject.GetComponent<AudioManager>();
 
-        DontDestroyOnLoad(gameObject);
-		WaveManager.EnemyDied += OnEnemyDiedEvent;
+		DontDestroyOnLoad(gameObject);
 	}
 
 	private void OnDestroy()
 	{
 		WaveManager.EnemyDied -= OnEnemyDiedEvent;
+		UIManager.GameLaunched -= LaunchGame;
 	}
 
 	private void Start()
 	{
-		playerInstance = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
-        VirtualCamera.Follow = playerInstance.transform;
+		WaveManager.EnemyDied += OnEnemyDiedEvent;
+        UIManager.GameLaunched += LaunchGame;
 	}
 
     public Vector3 GetPlayerPosition()
@@ -75,12 +96,29 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        points++;
-        ScoreChanged.Invoke(points);
+        score++;
+        ScoreChanged.Invoke(score);
+	}
+
+    private void LaunchGame()
+	{
+        score = 0;
+		playerInstance = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
+		VirtualCamera.Follow = playerInstance.transform;
 	}
 
     public void DisplayDamageParticuleSystem(Vector3 position)
     {
         PoolManager.GetInstanciedPrefab(DamageParticleSystem, position + Vector3.up / 2, typeof(DamagePSRecycler));
+    }
+
+    public void OnPlayerHit(float lifeRatio)
+    {
+		PlayerLifeChanged.Invoke(lifeRatio);
+        if(lifeRatio <= 0)
+        {
+            Destroy(playerInstance);
+            PlayerDied.Invoke(score);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameManager;
 
 public class CollectibleManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class CollectibleManager : MonoBehaviour
 
 	private void Start()
 	{
+		GameManager.Instance.CollectibleCollected += OnCollectCollectible;
+		GameManager.Instance.PlayerDied += OnPlayerDied;
 		GameManager.Instance.WaveManager.EnemyDied += OnEnemyDied;
 	}
 
@@ -21,6 +24,8 @@ public class CollectibleManager : MonoBehaviour
 			Destroy(collectibleList[index]);
 		}
 
+		GameManager.Instance.CollectibleCollected -= OnCollectCollectible;
+		GameManager.Instance.PlayerDied -= OnPlayerDied;
 		GameManager.Instance.WaveManager.EnemyDied -= OnEnemyDied;
 	}
 
@@ -34,6 +39,20 @@ public class CollectibleManager : MonoBehaviour
 		if(Random.value < SpawnRate)
 		{
 			collectibleList.Add(Instantiate(collectibles[Random.Range(0, collectibles.Length)], enemy.transform.position, Quaternion.identity));
+		}
+	}
+
+	private void OnCollectCollectible(Collectible collectible)
+	{
+		collectibleList.Remove(collectible);
+		Destroy(collectible.gameObject);
+	}
+
+	private void OnPlayerDied(int score)
+	{
+		for (int collectibleIndex = collectibleList.Count - 1; collectibleIndex >= 0; collectibleIndex--)
+		{
+			OnCollectCollectible(collectibleList[collectibleIndex]);
 		}
 	}
 }

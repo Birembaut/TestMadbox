@@ -5,6 +5,7 @@ public class WeaponData : ScriptableObject
 {
 	public GameObject PrefabWeapon;
 	public Projectile PrefabProjectile;
+	public Sprite WeaponSprite;
 
 	public float WalkAnimationSpeed;
 	public float AttackAnimationSpeed;

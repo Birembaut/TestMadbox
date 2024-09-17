@@ -4,6 +4,8 @@ using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
+	public AudioClip ExplosionSound;
+	public AudioClip EnemyHitSound;
 	public ExplosionPSRecycler ExplosionPSRecycler;
 	public SkinnedMeshRenderer SkinnedMeshRenderer;
 	public HealthBar HealthBar;
@@ -89,6 +91,7 @@ public class Enemy : MonoBehaviour
 			CurrentEnemyState = EnemyState.Charging;
 		}
 
+		GameManager.Instance.AudioManager.AddSound(transform.position, EnemyHitSound);
 		GameManager.Instance.DisplayDamageParticuleSystem(transform.position);
 		currentHealth -= damage;
 		HealthBar.RatioChanged(currentHealth / healthMax);
@@ -128,12 +131,20 @@ public class Enemy : MonoBehaviour
 		SkinnedMeshRenderer.material.SetColor("_BaseColor", Color.white);
 	}
 
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerStay(Collider other)
 	{
+		if(CurrentEnemyState == EnemyState.Spawning)
+		{
+			return;
+		}
+
 		if(other.tag == "Player")
 		{
+			GameManager.Instance.AudioManager.AddSound(transform.position, ExplosionSound);
 			GameManager.Instance.PoolManager.GetInstanciedPrefab(ExplosionPSRecycler.gameObject, transform.position + Vector3.up / 2, typeof(ExplosionPSRecycler));
 			OnDeath(false);
+			Player player = other.GetComponent<Player>();
+			player.OnHit();
 		}
 	}
 }

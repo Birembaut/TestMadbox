@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2161235378873949160}
   - component: {fileID: 2439411031876293746}
   - component: {fileID: 965189679}
+  - component: {fileID: 1528707748}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -50,6 +51,7 @@ MonoBehaviour:
   InputManager: {fileID: 0}
   WaveManager: {fileID: 0}
   PoolManager: {fileID: 0}
+  CollectibleManager: {fileID: 0}
   WeaponDatas:
   - {fileID: 11400000, guid: 6a40df7188c39b54086d410853e9b5e1, type: 2}
   - {fileID: 11400000, guid: ba709ea24461a2c44b024ac826118eab, type: 2}
@@ -113,3 +115,16 @@ MonoBehaviour:
   - {fileID: 2049034418926390202, guid: a8cc9f6b85f660e449918b0bd6bf29e7, type: 3}
   - {fileID: 4542329688431032269, guid: a03ba3056b696714db129c86958d2103, type: 3}
   SpawnRate: 0.2
+--- !u!114 &1528707748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53417075334382407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b162495a46d8d74890d6a1848d94efb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioSourcePrefab: {fileID: 378030599787423975, guid: aa46d2eb01621f3429560a1823bd62e9, type: 3}

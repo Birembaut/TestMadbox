@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static GameManager;
 
 public class WaveManager : MonoBehaviour
 {
@@ -12,20 +13,36 @@ public class WaveManager : MonoBehaviour
 	private int waveCount = 0;
 	private List<Enemy> instanciedEnemies = new List<Enemy>();
 
-	private void Awake()
+	private void Start()
 	{
 		EnemyDied += OnEnemyDiedEvent;
+		UIManager.GameLaunched += LaunchGame;
+		GameManager.Instance.PlayerDied += OnPlayerDied;
 	}
 
 	private void OnDestroy()
 	{
 		EnemyDied -= OnEnemyDiedEvent;
+		UIManager.GameLaunched -= LaunchGame;
+		GameManager.Instance.PlayerDied -= OnPlayerDied;
 	}
 
-	private void Start()
+	private void LaunchGame()
 	{
 		InstanceWave(0);
 	}
+
+	private void OnPlayerDied(int score)
+	{
+		for (int enemyIndex = instanciedEnemies.Count - 1; enemyIndex >= 0; enemyIndex--)
+		{
+			Enemy enemyScript = instanciedEnemies[enemyIndex];
+			GameManager.Instance.PoolManager.RecycleItem(enemyScript.gameObject, typeof(Enemy));
+			instanciedEnemies.Remove(enemyScript);
+		}
+
+		waveCount = 0;
+    }
 
 	private void InstanceWave(int waveCount)
 	{

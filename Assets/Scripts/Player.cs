@@ -4,7 +4,12 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
 	public Transform WeaponSlot;
+	public float HealthMax = 10;
 
+	public AudioClip PlayerHitSound;
+	public AudioClip PlayerDeathSound;
+
+	private float currentHealth;
 	private CharacterController characterController;
 	private Animator animator;
 
@@ -18,12 +23,11 @@ public class Player : MonoBehaviour
 
 	private void Start()
 	{
-		SceneManager.LoadScene("UIScene", LoadSceneMode.Additive);
-
 		characterController = GetComponent<CharacterController>();
 		animator = GetComponentInChildren<Animator>();
 		GetComponentInChildren<PlayerAnimatorEvent>().Player = this;
 
+		currentHealth = HealthMax;
 		ChooseStartEquipment();
 
 		GameManager.Instance.InputManager.PlayerMoved += OnPlayerMoved;
@@ -71,6 +75,10 @@ public class Player : MonoBehaviour
 		{
 			EquipEquipment(GameManager.Instance.WeaponDatas[2]);
 		}
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			GameManager.Instance.OnPlayerHit(0);
+		}
 #endif
 	}
 
@@ -111,6 +119,7 @@ public class Player : MonoBehaviour
 		speed = currentWeapon.HeroSpeed;
 		animator.SetFloat("AttackSpeed", currentWeapon.AttackAnimationSpeed);
 		animator.SetFloat("WalkSpeed", currentWeapon.WalkAnimationSpeed);
+		GameManager.Instance.WeaponChanged.Invoke(currentWeapon);
 	}
 
 	private void ChooseStartEquipment()
@@ -135,13 +144,28 @@ public class Player : MonoBehaviour
 		CanAttack = true;
 	}
 
+	public void OnHit()
+	{
+		currentHealth--;
+		if (currentHealth <= 0) 
+		{
+			GameManager.Instance.AudioManager.AddSound(transform.position, PlayerDeathSound);
+		}
+		else
+		{
+			GameManager.Instance.AudioManager.AddSound(transform.position, PlayerHitSound);
+		}
+
+		GameManager.Instance.OnPlayerHit(currentHealth / HealthMax);
+	}
+
 	private void OnTriggerEnter(Collider other)
 	{
 		if(other.tag == "Collectible")
 		{
 			Collectible collectible = other.GetComponent<Collectible>();
 			EquipEquipment(collectible.WeaponData);
-			Destroy(collectible.gameObject);
+			GameManager.Instance.CollectibleCollected.Invoke(collectible);
 		}
 	}
 }
