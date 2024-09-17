@@ -16,5 +16,5 @@ MonoBehaviour:
   PrefabProjectile: {fileID: 6990240071940127080, guid: ed771b47450008e4aba8f27a9853151a, type: 3}
   WeaponSprite: {fileID: 21300000, guid: c3569591360bf284588dc13d12e259e6, type: 3}
   WalkAnimationSpeed: 2
-  AttackAnimationSpeed: 6
-  HeroSpeed: 12
+  AttackAnimationSpeed: 4
+  HeroSpeed: 10

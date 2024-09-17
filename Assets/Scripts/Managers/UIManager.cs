@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
 		EndScreen.SetActive(false);
 		PlayerHealthBar.RatioChanged(1);
 		UIManager.GameLaunched.Invoke();
+		OnScoreChanged(0);
 	}
 
 	private void OnScoreChanged(int score)
@@ -60,9 +61,8 @@ public class UIManager : MonoBehaviour
 		if (score > bestScore)
 		{
 			PlayerPrefs.SetInt("Score", score);
+			bestScore = score;
 		}
-
-		bestScore = score;
 
 		EndGameBestScore.text = $"Best score : {bestScore}";
 		EndGameScore.text = $"New score : {score}";

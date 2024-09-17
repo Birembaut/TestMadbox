@@ -376,7 +376,7 @@ MonoBehaviour:
   EndScreen: {fileID: 677279564}
   PlayerHealthBar: {fileID: 773591563}
   WeaponImage: {fileID: 2024812028}
-  EndGameScore: {fileID: 821261938}
+  EndGameScore: {fileID: 1520733024}
   EndGameBestScore: {fileID: 821261938}
   InGameScore: {fileID: 1764569888}
 --- !u!1 &50540922

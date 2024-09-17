@@ -104,8 +104,6 @@ public class Enemy : MonoBehaviour
 		}
 		else
 		{
-			floatingDamage.transform.SetParent(transform, false);
-			floatingDamage.transform.localPosition = Vector3.zero;
 			if(flickColorCoroutine != null)
 			{
 				StopCoroutine(flickColorCoroutine);
